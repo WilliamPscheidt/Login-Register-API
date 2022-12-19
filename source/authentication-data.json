@@ -1,0 +1,9 @@
+{
+    "authentication_data_email": {
+        "host": "us2.smtp.mailhostbox.com",
+        "port": "587",
+        "secure": false,
+        "user": "teste@bombeirosvoluntarios.top",
+        "password": "gJz%w)n4"
+    }
+}
