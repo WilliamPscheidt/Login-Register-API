@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer")
-const authentication_data = require("../../authentication-data.json")
+const authentication_data = require("../../authentication-private/authentication-data.json")
 
 class Mailer {
     constructor() {
@@ -15,16 +15,19 @@ class Mailer {
     }
 
     async sendMail(from, to, subject, text, html) {
-        await this.transporter.sendMail({
+        try {
+            await this.transporter.sendMail({
             from: from,
             to: to,
             subject: subject,
             text: text,
             html: html,
         });
+            return true
+        } catch (error) {
+            return false
+        }
     }
-
-
 }
 
 module.exports = Mailer
