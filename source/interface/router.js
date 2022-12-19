@@ -8,7 +8,6 @@ const router = () => {
   const loginRoute = require("./routes/login.route")
 
   const httpServer = new HttpServerAdapter();
-
   const database = new DatabaseAdapter(configurations.database_connection)
 
   httpServer.get('/status', (req, res) => { statusRoute(res) })
