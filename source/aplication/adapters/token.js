@@ -12,15 +12,12 @@ class Token {
     }
 
     async verifyToken(token) {
-        await jwt.verify(token, this.tokenPassword, (err, decoded) => {
-            if(err) {
-                return false
-            }
-
-            if(decoded) {
-                return true
-            }
-        })
+        try {
+            const decoded = await jwt.verify(token, this.tokenPassword);
+            return true;
+        } catch (err) {
+            return false;
+        }
     }
 }
 
