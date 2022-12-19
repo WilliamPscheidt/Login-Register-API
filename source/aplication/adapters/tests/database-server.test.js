@@ -1,15 +1,11 @@
 const DatabaseAdapter = require('../database-server');
+const configurations = require('../../configurations/configurations.json')
 
 describe('DatabaseAdapter', () => {
   let database;
 
   beforeEach(() => {
-    database = new DatabaseAdapter({
-      host: 'localhost',
-      user: 'root',
-      password: '',
-      database: 'cars-center'
-    });
+    database = new DatabaseAdapter(configurations.database_connection);
   });
 
   afterEach(async () => {
