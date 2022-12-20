@@ -1,5 +1,4 @@
 const registerDataValidation = require("../useCases/registerDataValidation")
-const sendResponse = require("../utils/sendResponseInRoutes")
 
 const registerMiddleWare = async (req, res, next) => {
     const {email, password, repeatPassword} = req.body
@@ -7,7 +6,7 @@ const registerMiddleWare = async (req, res, next) => {
     try {
       await registerDataValidation(email, password, repeatPassword)
     } catch (error) {
-      sendResponse(res, { "Error": error }, 200)
+      res.status(400).send({"Error": error })
       return
     }
 

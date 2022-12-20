@@ -1,5 +1,4 @@
 const LoginDataValidation = require("../useCases/loginDataValidation")
-const sendResponse = require("../utils/sendResponseInRoutes")
 
 const loginMiddleware = async (req, res, next) => {
     const { email, password } = req.body
@@ -7,7 +6,7 @@ const loginMiddleware = async (req, res, next) => {
     try {
         await LoginDataValidation(email, password)
     } catch (error) {
-        sendResponse(res, { "error": error }, 400)
+        res.status(400).send({"error": error })
         return
     }
 

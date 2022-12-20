@@ -1,14 +1,13 @@
 const router = () => {
   const HttpServerAdapter = require('../aplication/adapters/http-server')
-
+  const httpServer = new HttpServerAdapter();
+  
   const statusRoute = require("./routes/status.route")
   const loginRoute = require("./routes/login.route")
   const registerRoute = require("./routes/register.route")
 
   const registerMiddleWare = require("../aplication/services/registerMiddleware")
   const loginMiddleware = require("../aplication/services/loginMiddleware")
-
-  const httpServer = new HttpServerAdapter();
 
   httpServer.get('/api/status', statusRoute)
 

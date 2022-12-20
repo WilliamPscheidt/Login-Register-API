@@ -1,7 +1,5 @@
-const sendResponse = require("../../aplication/utils/sendResponseInRoutes")
-
 const statusRoute = (req, res) => {
-    sendResponse(res, {"ok": "API running"}, 200)
+    res.status(200).send({"ok": "API running"})
 }
 
 module.exports = statusRoute

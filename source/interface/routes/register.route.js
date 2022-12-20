@@ -1,4 +1,3 @@
-const sendResponse = require("../../aplication/utils/sendResponseInRoutes")
 const Cryptography = require("../../aplication/adapters/cryptogaphy")
 const Token = require("../../aplication/adapters/token")
 const DatabaseAdapter = require('../../aplication/adapters/database-server')
@@ -8,27 +7,27 @@ const token = new Token()
 const database = new DatabaseAdapter()
 
 const registerRoute = async (req, res) => {
-    const {email, password, repeatPassword} = req.body
+    const {email, password} = req.body
 
     const userAlreadyExists = await database.query("SELECT * FROM users WHERE email=?",[email])
     .then((result) => {
         if(result[0]) {
-            sendResponse(res, {"Error": "User already registered"}, 200)
+            res.status(200).send({"error": "User already registered"})
         } else {
             return false
         }
     }).catch(() => {
-        sendResponse(res, {"Error": "Error in database query"}, 200)
+        res.status(400).send({"error": "Error in database query"})
     })
 
     if (userAlreadyExists == false) {
         const hashedPassword = await crypto.encryptPassword(password)
         const tokenResponse = await token.signToken({email: email}, 3000)
         await database.query("INSERT INTO `users`(`email`, `password`) VALUES (?, ?)",[email, hashedPassword])
-        .then((success) => {
-            sendResponse(res, {"Success": "User registered", "Token": tokenResponse}, 200)
-        }).catch((error) => {
-            sendResponse(res, {"error": "Error in database"}, 200)
+        .then(() => {
+            res.status(200).send({"success": "User registered", "Token": tokenResponse})
+        }).catch(() => {
+            res.status(400).send({"error": "Error in database"})
         })
     }
 }
