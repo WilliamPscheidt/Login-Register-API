@@ -29,6 +29,18 @@ class DatabaseAdapter {
         })
     }
 
+    insert(sql) {
+        return new Promise((resolve, reject) => {
+            this.pool.query(sql, (error, results) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(results);
+                }
+            })
+        })
+    }
+
     close() {
         return new Promise((resolve, reject) => {
             this.pool.end((error) => {
