@@ -1,20 +1,9 @@
-const mysql = require("mysql")
+const mysql = require("mysql2")
+const configurations = require("../configurations/configurations.json")
 
 class DatabaseAdapter {
-    constructor(configuration) {
-        this.pool = mysql.createPool(configuration)
-    }
-
-    query(sql, values) {
-        return new Promise((resolve, reject) => {
-            this.pool.query(sql, values, (error, results) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    resolve(results);
-                }
-            })
-        })
+    constructor() {
+        this.pool = mysql.createPool(configurations.database_connection)
     }
 
     select(sql) {

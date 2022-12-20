@@ -35,7 +35,6 @@ const registerRoute = async (req, res, database) => {
             sendResponse(res, {"Success": "User registered", "Token": tokenResponse}, 200)
         }).catch((error) => {
             sendResponse(res, {"error": "Error in database"}, 200)
-            console.log(error)
         })
     }
 }

@@ -1,4 +1,4 @@
-t commit -am "Resolved conflicts"const Mailer = require("../mailer")
+const Mailer = require("../mailer")
 
 describe("Mailer system", () => {
 
