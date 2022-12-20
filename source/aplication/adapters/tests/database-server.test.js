@@ -13,7 +13,7 @@ describe('DatabaseAdapter', () => {
   });
 
   it('should execute a query and return the results', async () => {
-    const results = await database.select('SELECT * FROM users WHERE id = 1');
+    const results = await database.select('SELECT * FROM users WHERE id = ?',[1]);
     expect(results)
   });
 

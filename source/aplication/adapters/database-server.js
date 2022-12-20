@@ -6,21 +6,9 @@ class DatabaseAdapter {
         this.pool = mysql.createPool(configurations.database_connection)
     }
 
-    select(sql) {
+    query(sql, params) {
         return new Promise((resolve, reject) => {
-            this.pool.query(sql, (error, results) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    resolve(results);
-                }
-            })
-        })
-    }
-
-    insert(sql) {
-        return new Promise((resolve, reject) => {
-            this.pool.query(sql, (error, results) => {
+            this.pool.query(sql, params, (error, results) => {
                 if (error) {
                     reject(error);
                 } else {
