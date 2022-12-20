@@ -26,6 +26,10 @@ class HttpServer {
         this.express.put(path, handler);
     }
 
+    use(path, handler) {
+        this.express.use(path, handler)
+    }
+
     start() {
         this.express.listen(3000, () => {
             console.log("Server online")

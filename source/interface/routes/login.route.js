@@ -1,17 +1,15 @@
 const sendResponse = require("../../aplication/utils/sendResponseInRoutes")
 const LoginDataValidation = require("../../aplication/useCases/loginDataValidation")
+const DatabaseAdapter = require('../../aplication/adapters/database-server')
 
-const loginRoute = async (req, res, database) => {
+const database = new DatabaseAdapter()
+
+const loginRoute = async (req, res) => {
     const { email, password } = req.body
 
-    try {
-        await LoginDataValidation(email, password)
-    } catch (error) {
-        sendResponse(res, { "error": error }, 400)
-        return
-    }
+    console.log("Oi")
 
-    await database.select("SELECT * FROM users WHERE email='" + email + "'")
+    await database.query("SELECT * FROM users WHERE email='" + email + "'")
         .then((result) => {
             if (result[0].email == email) {
                 sendResponse(res, { "Ok": "Ok" }, 400)

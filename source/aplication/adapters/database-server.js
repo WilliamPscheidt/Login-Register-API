@@ -11,8 +11,10 @@ class DatabaseAdapter {
             this.pool.query(sql, params, (error, results) => {
                 if (error) {
                     reject(error);
+                    console.log(error)
                 } else {
                     resolve(results);
+                    console.log(results)
                 }
             })
         })

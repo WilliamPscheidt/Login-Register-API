@@ -1,17 +1,22 @@
 const router = () => {
   const HttpServerAdapter = require('../aplication/adapters/http-server')
-  const DatabaseAdapter = require('../aplication/adapters/database-server')
 
   const statusRoute = require("./routes/status.route")
   const loginRoute = require("./routes/login.route")
   const registerRoute = require("./routes/register.route")
 
-  const httpServer = new HttpServerAdapter();
-  const database = new DatabaseAdapter()
+  const registerMiddleWare = require("../aplication/services/registerMiddleware")
+  const loginMiddleware = require("../aplication/services/loginMiddleware")
 
-  httpServer.get('/api/status', (req, res) => { statusRoute(res) })
-  httpServer.post('/account/login', async (req, res) => { loginRoute(req, res, database) })
-  httpServer.post('/account/register', async (req, res) => { registerRoute(req, res, database) })
+  const httpServer = new HttpServerAdapter();
+
+  httpServer.get('/api/status', statusRoute)
+
+  httpServer.use('/account/login', loginMiddleware)
+  httpServer.post('/account/login', loginRoute)
+
+  httpServer.use('/account/register', registerMiddleWare)
+  httpServer.post('/account/register', registerRoute)
 
   httpServer.start()
 }

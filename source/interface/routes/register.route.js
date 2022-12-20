@@ -1,20 +1,14 @@
 const sendResponse = require("../../aplication/utils/sendResponseInRoutes")
-const registerDataValidation = require("../../aplication/useCases/registerDataValidation")
 const Cryptography = require("../../aplication/adapters/cryptogaphy")
 const Token = require("../../aplication/adapters/token")
+const DatabaseAdapter = require('../../aplication/adapters/database-server')
 
 const crypto = new Cryptography()
 const token = new Token()
+const database = new DatabaseAdapter()
 
-const registerRoute = async (req, res, database) => {
+const registerRoute = async (req, res) => {
     const {email, password, repeatPassword} = req.body
-
-    try {
-        await registerDataValidation(email, password, repeatPassword)
-    } catch (error) {
-        sendResponse(res, {"Error": error}, 200)
-        return
-    }
 
     const userAlreadyExists = await database.query("SELECT * FROM users WHERE email=?",[email])
     .then((result) => {
