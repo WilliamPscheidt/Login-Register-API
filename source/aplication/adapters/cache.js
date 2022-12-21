@@ -9,12 +9,12 @@ class Cache {
         this.redisClient.connect();
     }
 
-    get (key) {
-        return this.redisClient.get(key)
+    async get (key) {
+        return await this.redisClient.get(key)
     }
 
-    set (value, key) {
-        return this.redisClient.set(value, key)
+    async set (value, key) {
+        return await this.redisClient.set(value, key)
     }
 }
 
