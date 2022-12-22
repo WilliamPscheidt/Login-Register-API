@@ -4,7 +4,8 @@ class Cache {
     constructor() {
         this.redisClient = redis.createClient();
 
-        this.redisClient.on("error", (error) => console.error(`Error : ${error}`));
+        this.redisClient.on("error", (error) => console.error(`[-] Redis error : ${error}`));
+        this.redisClient.on("connect", (connect) => console.error(`[+] Redis online`));
       
         this.redisClient.connect();
     }
